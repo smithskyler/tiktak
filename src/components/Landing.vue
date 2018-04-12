@@ -7,7 +7,7 @@
       <p class="inline">Password</p>
       <input class="narrow inline" type="password" v-model="password" placeholder="Password">
       <br />
-      <button class="alternate" type="submit" onclick="window.location.href='/games'">Login</button>
+      <button class="alternate" type="submit" v-on:click="login();">Login</button>
     </form>
     <div class="spacer"></div>
     <h2>Register</h2>
@@ -38,6 +38,9 @@
      },
    },
    methods: {
+     login: function() {
+       this.$router.push('/games');
+     },
      register: function() {
        this.$store.dispatch('register',{
          username: this.username,

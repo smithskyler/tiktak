@@ -7,7 +7,7 @@
         <b-container class="bv-row">
           <b-row>
             <b-col class="left" cols="12" sm="12" md="12" lg="12" xl="12">
-              <button onclick="window.location.href='/games'">GAMES</button>
+              <button v-on:click="goBack();">GAMES</button>
             </b-col>
             <b-col cols="12" sm="12" md="12" lg="12" xl="12">
               <input value="SlimeBaron's Game" disabled></input>
@@ -62,7 +62,9 @@
      },
    },
    methods: {
-
+     goBack: function() {
+       this.$router.push('/games');
+     }
    }
  }
 </script>

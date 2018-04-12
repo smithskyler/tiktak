@@ -6,16 +6,28 @@
         <h2 class="cornerDisplay">&ensp;Tik Tak</h2>
       </b-col>
       <b-col id="loggedInUser">
-        <p>Logged in as <span>SlimeBaron</span> <a href="/" v-on:click="">(Logout)</a></p>
+        <p>Logged in as <span>SlimeBaron</span> <span id="logoutButton" v-on:click="logout()">(Logout)</span></p>
       </b-col>
     </b-row>
     <router-view></router-view>
+    <footer><a href="https://github.com/smithskyler/tiktak">GitHub</a></footer>
   </b-container>
 </template>
 
 <script>
 export default {
-  name: 'App'
+  name: 'App',
+  data () {
+    return {
+    }
+  },
+  computed: {
+  },
+  methods: {
+    logout: function() {
+      this.$router.push('/');
+    }
+  }
 }
 </script>
 
@@ -23,7 +35,6 @@ export default {
 @import url('https://fonts.googleapis.com/css?family=Lato');
 @import url('https://fonts.googleapis.com/css?family=Dosis');
 @import url('https://fonts.googleapis.com/css?family=Indie+Flower');
-
 
 body {
   background-color: #161616;
@@ -84,13 +95,13 @@ button:hover {
   color: #161616;
 }
 
-a {
-  text-decoration: none;
+#logoutButton {
   color: white;
   font-weight: bold;
+  cursor: pointer;
 }
 
-a:hover {
+#logoutButton:hover {
   text-decoration: underline;
 }
 </style>

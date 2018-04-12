@@ -5,7 +5,7 @@
       <b-col cols="12" sm="12" md="8" lg="6" xl="6">
         <div class="spacer"></div>
         <div class="left">
-          <button onclick="window.location.href='/play/3'">New Game</button>
+          <button v-on:click="newGame();">New Game</button>
         </div>
         <br />
         <div class="left">
@@ -62,6 +62,9 @@
    computed: {
    },
    methods: {
+     newGame: function() {
+       this.$router.push('/play/3');
+     }
    }
  }
 </script>

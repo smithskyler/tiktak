@@ -55,6 +55,9 @@ export default {
 		}
 	},
 	created: function() {
+		if (!this.$store.getters.loggedInUser) {
+			this.$router.push('/');
+		}
 	},
 	computed: {
 		gameID: function() {

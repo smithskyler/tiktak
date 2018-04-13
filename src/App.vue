@@ -6,7 +6,7 @@
 				<h2 class="cornerDisplay">&ensp;Tik Tak</h2>
 			</b-col>
 			<b-col id="loggedInUser">
-				<p>Logged in as <span>SlimeBaron</span> <span id="logoutButton" v-on:click="logout()">(Logout)</span></p>
+				<p v-if="loggedInUser">Logged in as <span>{{loggedInUser}}</span> <span id="logoutButton" v-on:click="logout()">(Logout)</span></p>
 			</b-col>
 		</b-row>
 		<router-view></router-view>
@@ -21,11 +21,28 @@ export default {
 		return {
 		}
 	},
+	created: function() {
+		if (!this.$store.getters.loggedInUser) {
+			this.$router.push('/');
+		}
+	},
 	computed: {
+		loggedInUser () {
+			return this.$store.getters.loggedInUser;
+		},
+	},
+	watch: {
+		loggedInUser (newUser, oldUser) {
+			if (!newUser) {
+				console.log("Logged out: " + oldUser);
+				this.$router.push('/');
+			}
+		},
 	},
 	methods: {
 		logout: function() {
-			this.$router.push('/');
+			// this.$router.push('/');
+			this.$store.dispatch('logout');
 		}
 	}
 }

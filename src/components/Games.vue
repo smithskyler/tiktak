@@ -59,11 +59,24 @@ export default {
 		return {
 		}
 	},
+	created: function() {
+		if (!this.$store.getters.loggedInUser) {
+			this.$router.push('/');
+			return;
+		}
+		this.$store.dispatch('getGames');
+	},
 	computed: {
+		games() {
+			return this.$store.getters.games;
+		},
 	},
 	methods: {
 		newGame: function() {
-			this.$router.push('/play/3');
+			this.$store.dispatch('createGame', {
+				username: this.$store.getters.loggedInUser,
+				key: this.$store.getters.sessionKey,
+			});
 		}
 	}
 }

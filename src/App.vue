@@ -6,7 +6,7 @@
 				<h2 class="cornerDisplay">&ensp;Tik Tak</h2>
 			</b-col>
 			<b-col id="loggedInUser">
-				<p v-if="loggedInUser">Logged in as <span>{{loggedInUser}}</span> <span id="logoutButton" v-on:click="logout()">(Logout)</span></p>
+				<p v-if="loggedInUser">Logged in as <span>{{loggedInUser.username}}</span> <span id="logoutButton" v-on:click="logout()">(Logout)</span></p>
 			</b-col>
 		</b-row>
 		<router-view></router-view>
@@ -19,9 +19,11 @@ export default {
 	name: 'App',
 	data () {
 		return {
+			timer: '',
 		}
 	},
 	created: function() {
+		this.timer = setInterval(this.pollGames, 1000);
 		if (!this.$store.getters.loggedInUser) {
 			this.$router.push('/');
 		}
@@ -34,16 +36,22 @@ export default {
 	watch: {
 		loggedInUser (newUser, oldUser) {
 			if (!newUser) {
-				console.log("Logged out: " + oldUser);
 				this.$router.push('/');
 			}
 		},
 	},
 	methods: {
 		logout: function() {
-			// this.$router.push('/');
-			this.$store.dispatch('logout');
-		}
+			this.$store.dispatch('logout', {
+				user: this.$store.getters.loggedInUser,
+				key: this.$store.getters.sessionKey,
+			});
+		},
+		pollGames: function() {
+			if (this.$store.getters.loggedInUser) {
+				this.$store.dispatch('getGames');
+			}
+		},
 	}
 }
 </script>

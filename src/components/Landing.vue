@@ -50,10 +50,8 @@ export default {
 	watch: {
 		loggedInUser (newUser, oldUser) {
 			if (newUser) {
-				console.log("Logged in: " + newUser);
 				this.$router.push('/games');
 			}
-			console.log("Logged out: " + oldUser);
 		},
 	},
 	methods: {
@@ -68,7 +66,10 @@ export default {
 				username: this.usernameRegister,
 				password: this.passwordRegister,
 			});
-		}
+		},
+	},
+	beforeDestroy() {
+		clearInterval(this.timer);
 	}
 }
 </script>

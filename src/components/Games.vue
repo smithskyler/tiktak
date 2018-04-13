@@ -11,8 +11,11 @@
 				<div class="left">
 					<h3>Your Games</h3>
 					<ul>
-						<li>
-							<span>Game 3</span> <button class="floatRight actionButton">CONTINUE</button>
+						<li v-for='game in yourGamesYourTurn'>
+							<span class="green">{{game.name}} (Your turn)</span> <button class="floatRight actionButton" v-on:click="continueGame(game.id)">CONTINUE</button>
+						</li>
+						<li v-for='game in yourGamesNotYourTurn'>
+							<span>{{game.name}}</span> <button class="floatRight actionButton" v-on:click="continueGame(game.id)">CONTINUE</button>
 						</li>
 					</ul>
 				</div>
@@ -20,11 +23,8 @@
 				<div class="left">
 					<h3>Available Games</h3>
 					<ul>
-						<li>
-							<span>Game 1</span> <button class="floatRight actionButton">JOIN</button>
-						</li>
-						<li>
-							<span>Game 2</span> <button class="floatRight actionButton">JOIN</button>
+						<li v-for='game in availableGames'>
+							<span>{{game.name}}</span> <button class="floatRight actionButton" v-on:click="joinGame(game.id)">JOIN</button>
 						</li>
 					</ul>
 				</div>
@@ -32,17 +32,17 @@
 				<div class="left">
 					<h3>Active Games</h3>
 					<ul>
-						<li>
-							<span>Game 4</span> <button class="floatRight actionButton">VIEW</button>
+						<li v-for='game in activeGames'>
+							<span>{{game.name}}</span> <button class="floatRight actionButton" v-on:click="viewGame(game.id)">VIEW</button>
 						</li>
 					</ul>
 				</div>
 
 				<div class="left">
-					<h3>Past Games</h3>
+					<h3>Your Past Games</h3>
 					<ul>
-						<li>
-							<span>Game 0</span> <button class="floatRight actionButton">VIEW</button>
+						<li v-for='game in yourPastGames'>
+							<span>{{game.name}}</span> <button class="floatRight actionButton" v-on:click="viewGame(game.id)">VIEW</button>
 						</li>
 					</ul>
 				</div>
@@ -67,16 +67,77 @@ export default {
 		this.$store.dispatch('getGames');
 	},
 	computed: {
-		games() {
-			return this.$store.getters.games;
+		yourCreatedGames() {
+			return this.$store.getters.games.filter(game => {
+				return (game.host_id == this.$store.getters.loggedInUser.id);
+			})
+		},
+		yourGamesYourTurn() {
+			return this.$store.getters.games.filter(game => {
+				return !game.winner && game.state.includes('_')
+							&& (game.host_id == this.$store.getters.loggedInUser.id
+							|| game.guest_id == this.$store.getters.loggedInUser.id)
+							&& game.turn == this.$store.getters.loggedInUser.id
+							&& game.guest_id;
+			})
+		},
+		yourGamesNotYourTurn() {
+			return this.$store.getters.games.filter(game => {
+				return !game.winner && game.state.includes('_')
+							&& (game.host_id == this.$store.getters.loggedInUser.id
+							|| game.guest_id == this.$store.getters.loggedInUser.id)
+							&& (game.turn != this.$store.getters.loggedInUser.id || !game.guest_id);
+			})
+		},
+		availableGames() {
+			return this.$store.getters.games.filter(game => {
+				return game.host_id != this.$store.getters.loggedInUser.id
+							&& game.guest_id === null;
+			})
+		},
+		activeGames() {
+			return this.$store.getters.games.filter(game => {
+				return game.host_id != this.$store.getters.loggedInUser.id
+							&& game.guest_id !== null && game.guest_id != this.$store.getters.loggedInUser.id;
+			})
+		},
+		yourPastGames() {
+			return this.$store.getters.games.filter(game => {
+				return (game.winner || !game.state.includes('_')) && (game.host_id == this.$store.getters.loggedInUser.id
+							|| game.guest_id == this.$store.getters.loggedInUser.id);
+			})
+		},
+	},
+	watch: {
+		yourCreatedGames (newGames, oldGames) {
+			for (let game of newGames) {
+				if (!oldGames.map(g => {return g.id}).includes(game.id)) {
+					this.$router.push(`/play/${game.id}`);
+					return;
+				}
+			}
 		},
 	},
 	methods: {
 		newGame: function() {
 			this.$store.dispatch('createGame', {
-				username: this.$store.getters.loggedInUser,
+				user: this.$store.getters.loggedInUser,
 				key: this.$store.getters.sessionKey,
 			});
+		},
+		continueGame: function(gameID) {
+			this.$router.push(`/play/${gameID}`);
+		},
+		joinGame: function(gameID) {
+			this.$store.dispatch('joinGame', {
+				user: this.$store.getters.loggedInUser,
+				game: {id: gameID},
+				key: this.$store.getters.sessionKey,
+			});
+			this.$router.push(`/play/${gameID}`);
+		},
+		viewGame: function(gameID) {
+			this.$router.push(`/play/${gameID}`);
 		}
 	}
 }
@@ -118,7 +179,11 @@ li {
 	height: 40px;
 	padding-top: 4px;
 }
+.green {
+	color: #32FF3F;
+}
 li:hover {
-	background-color: rgba(255,255,255,0.01);
+	background-color: rgba(255,255,255,0.05);
+	border-radius: 10px;
 }
 </style>

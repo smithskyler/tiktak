@@ -161,29 +161,29 @@ export default {
 	cursor: pointer;
 }
 h3 {
-	width: 100%;
-	padding: 5px 5px;
-	color: lightgray;
-	font-size: 16pt;
-	font-weight: 300;
-	border-bottom: 2px solid lightgray;
+	width: 100% !important;
+	padding: 5px 5px !important;
+	color: lightgray !important;
+	font-size: 16pt !important;
+	font-weight: 300 !important;
+	border-bottom: 2px solid lightgray !important;
 }
 ul {
-	list-style: none;
+	list-style: none !important;
 }
 li {
-	margin-bottom: 10px;
-	padding-left: 10px;
-	font-size: 14pt;
-	font-weight: 600;
-	height: 40px;
-	padding-top: 4px;
+	margin-bottom: 10px !important;
+	padding-left: 10px !important;
+	font-size: 14pt !important;
+	font-weight: 600 !important;
+	height: 40px !important;
+	padding-top: 4px !important;
 }
 .green {
 	color: #32FF3F;
 }
 li:hover {
-	background-color: rgba(255,255,255,0.05);
-	border-radius: 10px;
+	background-color: rgba(255,255,255,0.05) !important;
+	border-radius: 10px !important;
 }
 </style>

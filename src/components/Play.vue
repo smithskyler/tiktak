@@ -197,16 +197,16 @@ export default {
 }
 
 input {
-	font-family: 'Indie Flower', 'Chalkboard', Helvetica, Arial, sans-serif;
-	font-size: 24pt;
-	text-align: center;
-	font-weight: bold;
-	color: lightgray;
-	background-color: #161616;
-	border-bottom: 2px solid lightgray;
-	border-style: none none solid none;
-	border-radius: 0px;
-	padding-bottom: 0px;
+	font-family: 'Indie Flower', 'Chalkboard', Helvetica, Arial, sans-serif !important;
+	font-size: 24pt !important;
+	text-align: center !important;
+	font-weight: bold !important;
+	color: lightgray !important;
+	background-color: #161616 !important;
+	border-bottom: 2px solid lightgray !important;
+	border-style: none none solid none !important;
+	border-radius: 0px !important;
+	padding-bottom: 0px !important;
 }
 .icon {
 	font-size: 20pt;

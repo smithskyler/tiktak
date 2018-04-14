@@ -1,5 +1,5 @@
 <template class="container">
-	<b-container fluid id="app" class="bv-row">
+	<b-container fluid id="appArea" class="bv-row">
 		<b-row class="header">
 			<b-col>
 				<img src="./assets/TikTakLogo.png" width="40">
@@ -57,34 +57,17 @@ export default {
 </script>
 
 <style>
-@import url('https://fonts.googleapis.com/css?family=Lato');
-@import url('https://fonts.googleapis.com/css?family=Dosis');
 @import url('https://fonts.googleapis.com/css?family=Indie+Flower');
 
-body {
-	background-color: #161616;
-}
-
-#app {
+#appArea {
 	font-family: 'Indie Flower', 'Chalkboard', Helvetica, Arial, sans-serif;
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
 	text-align: center;
 	margin: 0px 5px;
-
 	color: lightgray;
 }
 .header {
-	padding-top: 10px;
-}
-.left {
-	text-align: left;
-	margin: 0px;
-}
-.right {
-	text-align: right;
-	margin: 0px;
-	height: 0px;
 	padding-top: 10px;
 }
 
@@ -92,32 +75,6 @@ body {
 	margin: 0px;
 	padding: 0px;
 	display: inline;
-}
-
-input {
-	margin-bottom: 0.5em;
-	padding: 6px 10px;
-	border: 2px solid #ccc;
-	border-radius: 4px;
-	background-color: #f8f8f8;
-	font-family: 'Lato', sans-serif;
-	font-size: 10pt;
-}
-
-button {
-	font-family: 'Chalkboard', sans-serif;
-	font-size: 12pt;
-	font-weight: bold;
-	color: lightgray;
-	border-radius: 12px;
-	border-color: lightgray;
-	border-width: 1.5px;
-	background-color: #161616;
-}
-
-button:hover {
-	background-color: lightgray;
-	color: #161616;
 }
 
 #logoutButton {

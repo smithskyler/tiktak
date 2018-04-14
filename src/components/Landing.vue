@@ -1,20 +1,17 @@
 <template>
 	<div>
 		<form class="right" v-on:submit.prevent="login">
-			<p class="inline">Username</p>
-			<input class="narrow inline" v-model="usernameLogin" placeholder="User Name">
+			<input class="narrow" v-model="usernameLogin" placeholder="User Name">
 			<br />
-			<p class="inline">Password</p>
-			<input class="narrow inline" type="password" v-model="passwordLogin" placeholder="Password">
+			<input class="narrow" type="password" v-model="passwordLogin" placeholder="Password">
 			<br />
 			<button class="alternate" type="submit" v-on:click="login();">Login</button>
 		</form>
 		<div class="spacer"></div>
 		<h2>Register</h2>
 		<form v-on:submit.prevent="register">
-			<p>Username</p>
 			<input class="narrow" v-model="usernameRegister" placeholder="User Name">
-			<p>Password</p>
+			<br />
 			<input class="narrow" type="password" v-model="passwordRegister" placeholder="Password">
 			<br /><br />
 			<button class="alternate" type="submit">Register</button>
@@ -91,11 +88,22 @@ export default {
 	height: 120px;
 }
 p {
-	margin-top: 10px;
-	margin-bottom: 0px;
+	margin-top: 10px !important;
+	margin-bottom: 0px !important;
 }
 h2 {
-	margin-top: 30px;
-	margin-bottom: 30px;
+	margin-top: 30px !important;
+	margin-bottom: 30px !important;
+}
+input {
+	font-family: 'Indie Flower', 'Chalkboard', Helvetica, Arial, sans-serif !important;
+	font-size: 14pt !important;
+	text-align: center !important;
+	color: lightgray !important;
+	background-color: #161616 !important;
+	border-bottom: 2px solid lightgray !important;
+	border-style: none none solid none !important;
+	border-radius: 0px !important;
+	padding-bottom: 0px !important;
 }
 </style>
